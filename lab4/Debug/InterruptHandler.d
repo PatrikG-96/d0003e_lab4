@@ -1,6 +1,5 @@
 InterruptHandler.d InterruptHandler.o: .././InterruptHandler.c \
- .././InterruptHandler.h .././Controller.h .././TinyTimber.h \
- .././PulseGenerator.h .././Writer.h \
+ .././InterruptHandler.h .././GUI.h .././TinyTimber.h .././LCDDrivers.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint-gcc.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
@@ -13,18 +12,16 @@ InterruptHandler.d InterruptHandler.o: .././InterruptHandler.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
- .././GUI.h .././LCDDrivers.h .././Joystick.h
+ .././Controller.h .././PulseGenerator.h .././Writer.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h
 
 .././InterruptHandler.h:
 
-.././Controller.h:
+.././GUI.h:
 
 .././TinyTimber.h:
 
-.././PulseGenerator.h:
-
-.././Writer.h:
+.././LCDDrivers.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint-gcc.h:
 
@@ -50,10 +47,10 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
 
+.././Controller.h:
+
+.././PulseGenerator.h:
+
+.././Writer.h:
+
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h:
-
-.././GUI.h:
-
-.././LCDDrivers.h:
-
-.././Joystick.h:

@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000170  00000000  00000000  000014a8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001e01  00000000  00000000  00001618  2**0
+  6 .debug_info   00001e0f  00000000  00000000  00001618  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000c5b  00000000  00000000  00003419  2**0
+  7 .debug_abbrev 00000c5b  00000000  00000000  00003427  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000ffc  00000000  00000000  00004074  2**0
+  8 .debug_line   00000ffc  00000000  00000000  00004082  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000009a0  00000000  00000000  00005070  2**2
+  9 .debug_frame  000009a0  00000000  00000000  00005080  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000875  00000000  00000000  00005a10  2**0
+ 10 .debug_str    000008ad  00000000  00000000  00005a20  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000247f  00000000  00000000  00006285  2**0
+ 11 .debug_loc    0000247f  00000000  00000000  000062cd  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000238  00000000  00000000  00008704  2**0
+ 12 .debug_ranges 00000238  00000000  00000000  0000874c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -109,12 +109,6 @@ Disassembly of section .text:
       9e:	08 95       	ret
 
 000000a0 <dispatch>:
-
-Thread pop(Thread *stack) {
-    Thread t = *stack;
-    *stack = t->next;
-    return t;
-}
       a0:	cf 93       	push	r28
       a2:	df 93       	push	r29
       a4:	00 d0       	rcall	.+0      	; 0xa6 <dispatch+0x6>
@@ -1836,12 +1830,6 @@ Thread pop(Thread *stack) {
     108e:	18 95       	reti
 
 00001090 <__vector_9>:
-        return 1;
-    }
-    return 0;
-}
-
-TIMER_OVERFLOW_INTERRUPT {
     1090:	1f 92       	push	r1
     1092:	0f 92       	push	r0
     1094:	0f b6       	in	r0, 0x3f	; 63
@@ -1857,14 +1845,11 @@ TIMER_OVERFLOW_INTERRUPT {
     10a8:	9f 93       	push	r25
     10aa:	ef 93       	push	r30
     10ac:	ff 93       	push	r31
-    TIMER_OCLR();
-    overflows++;
     10ae:	80 91 06 01 	lds	r24, 0x0106	; 0x800106 <__data_end>
     10b2:	90 91 07 01 	lds	r25, 0x0107	; 0x800107 <__data_end+0x1>
     10b6:	01 96       	adiw	r24, 0x01	; 1
     10b8:	90 93 07 01 	sts	0x0107, r25	; 0x800107 <__data_end+0x1>
     10bc:	80 93 06 01 	sts	0x0106, r24	; 0x800106 <__data_end>
-    TIMERSET(timerQ);
     10c0:	e0 91 0c 01 	lds	r30, 0x010C	; 0x80010c <timerQ>
     10c4:	f0 91 0d 01 	lds	r31, 0x010D	; 0x80010d <timerQ+0x1>
     10c8:	30 97       	sbiw	r30, 0x00	; 0
@@ -1879,7 +1864,6 @@ TIMER_OVERFLOW_INTERRUPT {
     10da:	80 91 6f 00 	lds	r24, 0x006F	; 0x80006f <__TEXT_REGION_LENGTH__+0x7fc06f>
     10de:	8d 7f       	andi	r24, 0xFD	; 253
     10e0:	80 93 6f 00 	sts	0x006F, r24	; 0x80006f <__TEXT_REGION_LENGTH__+0x7fc06f>
-}
     10e4:	ff 91       	pop	r31
     10e6:	ef 91       	pop	r30
     10e8:	9f 91       	pop	r25
@@ -1895,12 +1879,6 @@ TIMER_OVERFLOW_INTERRUPT {
     10fc:	0f 90       	pop	r0
     10fe:	1f 90       	pop	r1
     1100:	18 95       	reti
-}
-
-TIMER_OVERFLOW_INTERRUPT {
-    TIMER_OCLR();
-    overflows++;
-    TIMERSET(timerQ);
     1102:	ca 01       	movw	r24, r20
     1104:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7fc084>
     1108:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7fc085>
@@ -1921,9 +1899,6 @@ TIMER_OVERFLOW_INTERRUPT {
     1134:	f0 cf       	rjmp	.-32     	; 0x1116 <__vector_9+0x86>
 
 00001136 <__vector_7>:
-}
-
-TIMER_COMPARE_INTERRUPT {
     1136:	1f 92       	push	r1
     1138:	0f 92       	push	r0
     113a:	0f b6       	in	r0, 0x3f	; 63
@@ -1953,9 +1928,6 @@ TIMER_COMPARE_INTERRUPT {
     116a:	df 93       	push	r29
     116c:	ef 93       	push	r30
     116e:	ff 93       	push	r31
-    Time now;
-    TIMER_CCLR();
-    TIMERGET(now);
     1170:	e0 90 06 01 	lds	r14, 0x0106	; 0x800106 <__data_end>
     1174:	f0 90 07 01 	lds	r15, 0x0107	; 0x800107 <__data_end+0x1>
     1178:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7fc084>
@@ -1980,7 +1952,6 @@ TIMER_COMPARE_INTERRUPT {
     11a4:	d0 91 0d 01 	lds	r29, 0x010D	; 0x80010d <timerQ+0x1>
     11a8:	80 91 0e 01 	lds	r24, 0x010E	; 0x80010e <msgQ>
     11ac:	90 91 0f 01 	lds	r25, 0x010F	; 0x80010f <msgQ+0x1>
-    while (timerQ && (timerQ->baseline - now <= 0))
     11b0:	20 97       	sbiw	r28, 0x00	; 0
     11b2:	09 f4       	brne	.+2      	; 0x11b6 <__vector_7+0x80>
     11b4:	3f c0       	rjmp	.+126    	; 0x1234 <__vector_7+0xfe>
@@ -2000,20 +1971,8 @@ TIMER_COMPARE_INTERRUPT {
     11d0:	13 06       	cpc	r1, r19
     11d2:	0c f4       	brge	.+2      	; 0x11d6 <__vector_7+0xa0>
     11d4:	40 c0       	rjmp	.+128    	; 0x1256 <__vector_7+0x120>
-}
-
-Msg dequeue(Msg *queue) {
-    Msg m = *queue;
-    if (m)
-        *queue = m->next;
     11d6:	d8 80       	ld	r13, Y
     11d8:	c9 80       	ldd	r12, Y+1	; 0x01
-IRQ(IRQ_LCD,             LCD_vect);
-
-/* queue manager */
-void enqueueByDeadline(Msg p, Msg *queue) {
-    Msg prev = NULL, q = *queue;
-    while (q && (q->deadline <= p->deadline)) {
     11da:	00 97       	sbiw	r24, 0x00	; 0
     11dc:	b9 f1       	breq	.+110    	; 0x124c <__vector_7+0x116>
     11de:	0e 81       	ldd	r16, Y+6	; 0x06
@@ -2042,49 +2001,21 @@ void enqueueByDeadline(Msg p, Msg *queue) {
     120c:	37 07       	cpc	r19, r23
     120e:	dc f0       	brlt	.+54     	; 0x1246 <__vector_7+0x110>
     1210:	df 01       	movw	r26, r30
-        prev = q;
-        q = q->next;
     1212:	ed 91       	ld	r30, X+
     1214:	fc 91       	ld	r31, X
     1216:	11 97       	sbiw	r26, 0x01	; 1
-IRQ(IRQ_LCD,             LCD_vect);
-
-/* queue manager */
-void enqueueByDeadline(Msg p, Msg *queue) {
-    Msg prev = NULL, q = *queue;
-    while (q && (q->deadline <= p->deadline)) {
     1218:	30 97       	sbiw	r30, 0x00	; 0
     121a:	89 f7       	brne	.-30     	; 0x11fe <__vector_7+0xc8>
-        prev = q;
-        q = q->next;
-    }
-    p->next = q;
     121c:	19 82       	std	Y+1, r1	; 0x01
     121e:	18 82       	st	Y, r1
-    if (prev == NULL)
-        *queue = p;
-    else
-        prev->next = p;
     1220:	cd 93       	st	X+, r28
     1222:	dc 93       	st	X, r29
     1224:	38 2f       	mov	r19, r24
     1226:	29 2f       	mov	r18, r25
-}
-
-Msg dequeue(Msg *queue) {
-    Msg m = *queue;
-    if (m)
-        *queue = m->next;
     1228:	cd 2d       	mov	r28, r13
     122a:	dc 2d       	mov	r29, r12
     122c:	83 2f       	mov	r24, r19
     122e:	92 2f       	mov	r25, r18
-
-TIMER_COMPARE_INTERRUPT {
-    Time now;
-    TIMER_CCLR();
-    TIMERGET(now);
-    while (timerQ && (timerQ->baseline - now <= 0))
     1230:	20 97       	sbiw	r28, 0x00	; 0
     1232:	09 f6       	brne	.-126    	; 0x11b6 <__vector_7+0x80>
     1234:	10 92 0d 01 	sts	0x010D, r1	; 0x80010d <timerQ+0x1>
@@ -2092,12 +2023,6 @@ TIMER_COMPARE_INTERRUPT {
     123c:	90 93 0f 01 	sts	0x010F, r25	; 0x80010f <msgQ+0x1>
     1240:	80 93 0e 01 	sts	0x010E, r24	; 0x80010e <msgQ>
     1244:	13 c0       	rjmp	.+38     	; 0x126c <__vector_7+0x136>
-    Msg prev = NULL, q = *queue;
-    while (q && (q->deadline <= p->deadline)) {
-        prev = q;
-        q = q->next;
-    }
-    p->next = q;
     1246:	f9 83       	std	Y+1, r31	; 0x01
     1248:	e8 83       	st	Y, r30
     124a:	ea cf       	rjmp	.-44     	; 0x1220 <__vector_7+0xea>
@@ -2110,21 +2035,13 @@ TIMER_COMPARE_INTERRUPT {
     125a:	c0 93 0c 01 	sts	0x010C, r28	; 0x80010c <timerQ>
     125e:	90 93 0f 01 	sts	0x010F, r25	; 0x80010f <msgQ+0x1>
     1262:	80 93 0e 01 	sts	0x010E, r24	; 0x80010e <msgQ>
-    Time now;
-    TIMER_CCLR();
-    TIMERGET(now);
-    while (timerQ && (timerQ->baseline - now <= 0))
-        enqueueByDeadline( dequeue(&timerQ), &msgQ );
-    TIMERSET(timerQ);
     1266:	e6 16       	cp	r14, r22
     1268:	f7 06       	cpc	r15, r23
     126a:	d9 f1       	breq	.+118    	; 0x12e2 <__vector_7+0x1ac>
     126c:	80 91 6f 00 	lds	r24, 0x006F	; 0x80006f <__TEXT_REGION_LENGTH__+0x7fc06f>
     1270:	8d 7f       	andi	r24, 0xFD	; 253
     1272:	80 93 6f 00 	sts	0x006F, r24	; 0x80006f <__TEXT_REGION_LENGTH__+0x7fc06f>
-    schedule();
     1276:	0e 94 70 00 	call	0xe0	; 0xe0 <schedule>
-}
     127a:	ff 91       	pop	r31
     127c:	ef 91       	pop	r30
     127e:	df 91       	pop	r29
@@ -2154,12 +2071,6 @@ TIMER_COMPARE_INTERRUPT {
     12ae:	0f 90       	pop	r0
     12b0:	1f 90       	pop	r1
     12b2:	18 95       	reti
-}
-
-TIMER_COMPARE_INTERRUPT {
-    Time now;
-    TIMER_CCLR();
-    TIMERGET(now);
     12b4:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7fc084>
     12b8:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7fc085>
     12bc:	47 01       	movw	r8, r14
@@ -2181,9 +2092,6 @@ TIMER_COMPARE_INTERRUPT {
     12dc:	aa 2a       	or	r10, r26
     12de:	bb 2a       	or	r11, r27
     12e0:	5f cf       	rjmp	.-322    	; 0x11a0 <__vector_7+0x6a>
-    while (timerQ && (timerQ->baseline - now <= 0))
-        enqueueByDeadline( dequeue(&timerQ), &msgQ );
-    TIMERSET(timerQ);
     12e2:	ca 01       	movw	r24, r20
     12e4:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7fc084>
     12e8:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7fc085>

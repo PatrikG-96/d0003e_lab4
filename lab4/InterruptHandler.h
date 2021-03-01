@@ -1,18 +1,17 @@
-/*
- * InterruptHandler.h
- *
- * Created: 2021-02-25 18:29:18
- *  Author: shirt
- */ 
-
 
 #ifndef INTERRUPTHANDLER_H_
 #define INTERRUPTHANDLER_H_
 
+#include "GUI.h"
 #include "Controller.h"
 #include <avr/io.h>
 
-
+#define STICK_CENTER 0
+#define STICK_LEFT 1
+#define STICK_RIGHT 2
+#define STICK_UP 3
+#define STICK_DOWN 4
+#define STICK_PRESSED 5
 
 typedef struct {
 	Object super;

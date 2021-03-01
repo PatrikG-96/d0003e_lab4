@@ -18,8 +18,8 @@ int main(void)
 {
 	return 0;
 	Writer wr = initWriter();
-	PulseGenerator p1 = initPulseGenerator(1, &wr);
-	PulseGenerator p2 = initPulseGenerator(2, &wr);
+	PulseGenerator p1 = initPulseGenerator(4, &wr);
+	PulseGenerator p2 = initPulseGenerator(6, &wr);
 	GUI g = initGUI();
     Controller c = initController(&p1, &p2, &g);
 	InterruptHandler i = initInterruptHandler(&c);

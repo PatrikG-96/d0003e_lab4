@@ -156,12 +156,6 @@
     <Compile Include="InterruptHandler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Joystick.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Joystick.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="LCDDrivers.c">
       <SubType>compile</SubType>
     </Compile>

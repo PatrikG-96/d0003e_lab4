@@ -8,7 +8,6 @@
  */ 
 
 #include "Controller.h"
-#include "LCDDrivers.h"
 #include "Joystick.h"
 #include <stdbool.h>
 
@@ -16,25 +15,29 @@
 void stick_down(Controller *self, int arg0) {
 	self->holding_down = true;						// we are currently, to our knowledge, holding down the stick
 	SYNC(self->p[self->current], dec_freq, 0);
-	update_gui(self);
-	AFTER(MSEC(INITIAL_DELAY), self, hold_down, 0);	// Given an initial delay, start the holding "loop"
+	update_gui(self,0);
+	if (!self->currently_holding) {
+		self->currently_holding = true;
+		AFTER(MSEC(INITIAL_DELAY), self, hold_down, 0);	// Given an initial delay, start the holding "loop"	
+	}
 }
 
 /* React to joystick being pressed upwards */
 void stick_up(Controller *self, int arg0) {
 	self->holding_up = true;						// we are currently, to our knowledge, holding up the stick
 	SYNC(self->p[self->current], inc_freq, 0);
-	update_gui(self);
-	AFTER(MSEC(INITIAL_DELAY), self, hold_up, 0);	// Given an initial delay, start the holding "loop"
+	update_gui(self, 0);
+	if (!self->currently_holding) {
+		self->currently_holding = true;
+		AFTER(MSEC(INITIAL_DELAY), self, hold_up, 0);	// Given an initial delay, start the holding "loop"		
+	}
 }
 
 /* React to joystick being pressed to the left */
 void stick_left(Controller *self, int arg0) {
 	if (self->current != LEFT)						// If we are using the "left" generator, do nothing
 	{
-		//SYNC(self->p[self->current], pause, 0);		// pause current generator
 		self->current = LEFT;						// swap generator
-		//SYNC(self->p[self->current], activate, 0);	// active current generator
 		ASYNC(self->gui, left, 0);					// swap segment on gui
 	}
 	
@@ -44,9 +47,7 @@ void stick_left(Controller *self, int arg0) {
 void stick_right(Controller *self, int arg0) {
 	if (self->current != RIGHT)						// If we are using the "left" generator, do nothing
 	{
-		//SYNC(self->p[self->current], pause, 0);		// pause current generator
 		self->current = RIGHT;						// swap generator
-		//SYNC(self->p[self->current], activate, 0);	// active current generator
 		ASYNC(self->gui, right, 0);					// swap segment on gui
 	}
 }
@@ -62,7 +63,7 @@ void stick_pressed(Controller *self, int arg0) {
 		SYNC(self->p[self->current], load, 0);					// if not active, load previously saved frequency and activate
 	}
 
-	update_gui(self);
+	update_gui(self, 0);
 	
 }
 
@@ -73,6 +74,8 @@ void hold_down(Controller *self, int arg0) {
 		SYNC(self->p[self->current], dec_freq, 0);
 		ASYNC(self->gui, render, self->p[self->current]->frequency);
 		AFTER(MSEC(HOLD_DELAY), self, hold_down, 0);
+	} else {
+		self->currently_holding = false;
 	}
 	
 }
@@ -82,6 +85,8 @@ void hold_up(Controller *self, int arg0) {
 		SYNC(self->p[self->current], inc_freq, 0);
 		ASYNC(self->gui, render, self->p[self->current]->frequency);
 		AFTER(MSEC(HOLD_DELAY), self, hold_up, 0);
+	} else {
+		self->currently_holding = false;
 	}
 }
 
@@ -90,7 +95,7 @@ void stick_centered(Controller *self, int arg0) {
 	self->holding_down = false;
 }
 
-void update_gui(Controller *self) {
+void update_gui(Controller *self, int arg0) {
 	uint8_t freq = SYNC(self->p[self->current], get_frequency, 0);
 	ASYNC(self->gui, render, freq);
 }
